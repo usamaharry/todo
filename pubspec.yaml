@@ -11,10 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts: ^6.1.0
+  intl: ^0.18.1
   json_annotation: ^4.8.1
   shared_preferences: ^2.2.2
   stacked: ^3.4.0
   stacked_services: ^1.1.0
+  uuid: ^4.1.0
 
 dev_dependencies:
   flutter_test:

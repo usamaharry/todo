@@ -13,10 +13,16 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+      appBar: AppBar(
+        title: const Text('Task Mate'),
+        actions: [
+          IconButton(
+            onPressed: viewModel.onAddNewTask,
+            icon: const Icon(Icons.add),
+          ),
+        ],
       ),
+      body: Container(),
     );
   }
 

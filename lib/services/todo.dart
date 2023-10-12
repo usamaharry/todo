@@ -1,6 +1,7 @@
-//local
 import 'dart:convert';
 
+//local
+import 'package:uuid/uuid.dart';
 import 'package:todo/app/app.locator.dart';
 import 'package:todo/models/todo.dart';
 import 'package:todo/services/shared_prefs.dart';
@@ -18,14 +19,14 @@ class TodoService {
   Future<bool> addTodo({required String title}) async {
     _todos.add(
       Todo(
-        id: '',
+        id: const Uuid().v1(),
         title: title,
         isDone: false,
         dueDate: DateTime.now(),
       ),
     );
 
-    saveToPrefs();
+    await saveToPrefs();
 
     return true;
   }
