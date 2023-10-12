@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:stacked/stacked.dart';
+import 'package:todo/ui/widgets/todo_item.dart';
 
 import 'home_viewmodel.dart';
 
@@ -22,7 +24,15 @@ class HomeView extends StackedView<HomeViewModel> {
           ),
         ],
       ),
-      body: Container(),
+      body: viewModel.isBusy
+          ? const Center(child: CircularProgressIndicator.adaptive())
+          : ListView.builder(
+              itemCount: viewModel.todos.length,
+              itemBuilder: (context, index) => TodoItem(
+                todo: viewModel.todos[index],
+                onDelete: viewModel.onDeleteTodo,
+              ),
+            ),
     );
   }
 
@@ -31,4 +41,11 @@ class HomeView extends StackedView<HomeViewModel> {
     BuildContext context,
   ) =>
       HomeViewModel();
+
+  @override
+  void onViewModelReady(HomeViewModel viewModel) {
+    super.onViewModelReady(viewModel);
+    SchedulerBinding.instance
+        .addPostFrameCallback((timeStamp) => viewModel.init());
+  }
 }
