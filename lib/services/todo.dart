@@ -14,34 +14,42 @@ class TodoService {
   fetchTodos() {
     final list = _prefService.getStringList('todos');
     _todos = list.map((e) => Todo.fromJson(jsonDecode(e))).toList();
+    _sort();
   }
 
-  Future<bool> addTodo({required String title}) async {
+  Future<bool> addTodo(
+      {required String title, required DateTime dateTime}) async {
     _todos.add(
       Todo(
         id: const Uuid().v1(),
         title: title,
         isDone: false,
-        dueDate: DateTime.now(),
+        dueDate: dateTime,
       ),
     );
-
-    await saveToPrefs();
+    _sort();
+    await _saveToPrefs();
 
     return true;
   }
 
   Future<bool> removeTodo(String id) async {
     _todos.removeWhere((element) => element.id == id);
-
-    saveToPrefs();
+    _sort();
+    _saveToPrefs();
 
     return true;
   }
 
-  Future<void> saveToPrefs() async {
+  Future<void> _saveToPrefs() async {
     await _prefService.setListOfString(
         'todos', _todos.map((e) => jsonEncode(e.toJson())).toList());
     return;
+  }
+
+  void _sort() {
+    _todos.sort(
+      (a, b) => a.dueDate.compareTo(b.dueDate),
+    );
   }
 }

@@ -49,7 +49,7 @@ class AddTaskViewModel extends FormViewModel {
 
   void onAddNewTask() async {
     setBusy(true);
-    await _todoService.addTodo(title: title);
+    await _todoService.addTodo(title: title, dateTime: _selectedDate!);
     _navigationService.back();
   }
 }
