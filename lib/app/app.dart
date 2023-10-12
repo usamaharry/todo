@@ -1,3 +1,5 @@
+import 'package:todo/services/shared_prefs.dart';
+import 'package:todo/services/todo.dart';
 import 'package:todo/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:todo/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:todo/ui/views/startup/startup_view.dart';
@@ -16,6 +18,9 @@ import 'package:todo/ui/views/home/home_view.dart';
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
+    LazySingleton(classType: TodoService),
+    InitializableSingleton(classType: SharedPrefsService),
+
     // @stacked-service
   ],
   bottomsheets: [
