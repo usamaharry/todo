@@ -20,16 +20,19 @@ class AddTaskViewModel extends FormViewModel {
   String get title => titleValue ?? '';
 
   void onClickSelectDate(BuildContext context) async {
-    final minDate = DateTime.now();
+    final minDate = DateTime.now().subtract(const Duration(seconds: 5));
     final maxDate = DateTime.now().add(const Duration(days: 365 * 10));
 
     Platform.isAndroid
         ? showDatePicker(
             context: context,
             initialDate: minDate,
-            firstDate: maxDate,
+            firstDate: minDate,
             lastDate: maxDate,
-          )
+          ).then((value) {
+            _selectedDate = value;
+            rebuildUi();
+          })
         : showCupertinoModalPopup(
             context: context,
             builder: (context) => SizedBox(

@@ -70,7 +70,8 @@ class AddTaskView extends StackedView<AddTaskViewModel> with $AddTaskView {
                         child: Text(
                           viewModel.selectedDate == null
                               ? 'Select Date'
-                              : '${DateFormat(DateFormat.HOUR_MINUTE).format(viewModel.selectedDate!)} ${DateFormat.yMMMEd().format(viewModel.selectedDate!)}',
+                              : DateFormat.yMMMEd()
+                                  .format(viewModel.selectedDate!),
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!
